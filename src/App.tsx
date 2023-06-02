@@ -1,11 +1,20 @@
-import  ShoppingCart  from './components/ShoppingCart'
-import './App.css'
+import CartFooter from './components/CartFooter';
+import CartHeader from './components/CartHeader';
+import CartMain from './components/CartMain';
+
 
 function App() {
 
   return (
     <>
-    <ShoppingCart/>
+    <div className='shopping-cart'>
+      <CartHeader 
+        itens={0}
+      />
+      <CartMain />
+      <CartFooter />
+    </div>
+
     </>
   )
 }

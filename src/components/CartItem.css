@@ -1,0 +1,26 @@
+*{
+  list-style: none;
+}
+
+.shoppingCart-Main ul{
+  display: grid;
+  gap: 24px;
+}
+
+.shoppingCart-Main li{
+  border: 1px solid red;
+  display: flex;
+  gap: 24px;
+}
+
+.item-quantity{
+  border: 1px solid red;
+  display: flex;
+}
+
+.shoppingCart-Main img{
+  object-fit: cover;
+  border-radius: 15px;
+  width: 140px;
+  height: 140px;
+}
