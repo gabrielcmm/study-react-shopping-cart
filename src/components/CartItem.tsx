@@ -16,26 +16,25 @@ type CartItemProps = {
     thumbnail: string,
     images: string[],
   },
-  cart: {
-    totalItems: number,
-    totalQuantity: number
-  }
+  handleItem: (newProduct: any, quantity: number) => void
 }
 
 function CartItem(props: CartItemProps) {
-  const { product, cart } = props
-  const [quantity, setQuantity] = useState(0);
-  const updateCart = (isPlus: boolean, product: any ) => {
-    if (isPlus) {
-      cart.totalItems += 1;
-      cart.totalQuantity += product.product.price;
-    } else {
-      cart.totalItems -= 1;
-      cart.totalQuantity -= product.product.price;
-    }
+  const { product, handleItem } = props
+  const [quantity, setQuantity] = useState(1);
+
+  const addQuantity = () => {
+    setQuantity(quantity + 1);
   }
-  const handlePlusClick = () => {setQuantity(quantity + 1)}
-  const handleMinusClick = () => {setQuantity(quantity - 1)}
+  const removeQuantity = () => {
+    quantity < 1 ? setQuantity(0) : setQuantity(quantity - 1);
+  }
+
+  const handleClick =  (product: any, toAdd: boolean) => {    
+    toAdd ? addQuantity() : removeQuantity();
+    handleItem(product, quantity + 1);
+  };
+
   return (
     <>
         <img src={product.thumbnail} alt={product.title} />
@@ -43,9 +42,9 @@ function CartItem(props: CartItemProps) {
           <h3>{product.title}</h3>
           <p>R$ {product.price}</p>
         <div className="item-quantity">
-          <button onClick={handlePlusClick}><Plus width={15}/></button>
+          <button onClick={() => handleClick(product, true)}><Plus width={15}/></button>
           <p>{quantity}</p>
-          <button onClick={handleMinusClick}><Minus width={15}/></button>
+          <button onClick={() => handleClick(product, false)}><Minus width={15}/></button>
         </div>
       </div>
     </>

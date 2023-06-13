@@ -1,8 +1,13 @@
 import React from 'react'
 
-function CartFooter() {
+type CartFooterProps = {
+  value: number,
+}
+
+function CartFooter(props: CartFooterProps) {
+  const { value } = props;
   return (
-    <div>CartFooter</div>
+    <div>O Valor total do seu carrinho é: R$ {value}</div>
   )
 }
 
