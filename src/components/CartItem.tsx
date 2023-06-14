@@ -25,14 +25,17 @@ function CartItem(props: CartItemProps) {
 
   const addQuantity = () => {
     setQuantity(quantity + 1);
+    console.log(`add quantity: ${quantity}`); 
   }
+
   const removeQuantity = () => {
-    quantity < 1 ? setQuantity(0) : setQuantity(quantity - 1);
+    quantity === -1 ? setQuantity(0) : setQuantity(quantity - 1);
+    console.log(`remove quantity: ${quantity}`);
   }
 
   const handleClick =  (product: any, toAdd: boolean) => {    
     toAdd ? addQuantity() : removeQuantity();
-    handleItem(product, quantity + 1);
+    handleItem(product, quantity);
   };
 
   return (

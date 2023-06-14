@@ -2,12 +2,13 @@ import { useState } from 'react'
 import CartFooter from './CartFooter'
 import CartHeader from './CartHeader'
 import CartMain from './CartMain'
-import { ItemProps, ItemPropsWithQuantity } from '../types/Item';
+import { ItemPropsWithQuantity } from '../types/Item';
 
 function ShoppingCart() {
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [totalValue, setTotalValue] = useState(0);
   const [cart, setCart] = useState<ItemPropsWithQuantity[]>([]);
+
   
   const handleCart = (newCart: ItemPropsWithQuantity[]) => {
     setCart(newCart);

@@ -11,7 +11,7 @@ function CartMain(props: CartMainProps) {
   const {handleCart} = props
   const [cart, setCart] = useState<ItemPropsWithQuantity[]>([]);
 
-  const handleClick = (newProduct:any, quantity: number) => {
+  const handleItem = (newProduct:any, quantity: number) => {
     const productIndex = cart.findIndex((cart) => cart.id === newProduct.id);
 
     if (productIndex !== - 1) {
@@ -27,6 +27,7 @@ function CartMain(props: CartMainProps) {
       }
       setCart([...cart, newProductWithQuantity]);
     }
+    console.log(cart);
     handleCart(cart);
   }
   return (
@@ -36,7 +37,7 @@ function CartMain(props: CartMainProps) {
         {data.map((item) => 
           <li key={item.id}>        
             <CartItem
-              handleItem = {handleClick}
+              handleItem = {handleItem}
               product={item}
             />
         </li>
