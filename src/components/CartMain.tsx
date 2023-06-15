@@ -1,34 +1,44 @@
 import CartItem from './CartItem'
 import data from '../data.json'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ItemPropsWithQuantity } from '../types/Item';
 
 type CartMainProps = {
   handleCart: (cart: any) => void;
 }
 
+
 function CartMain(props: CartMainProps) {
   const {handleCart} = props
   const [cart, setCart] = useState<ItemPropsWithQuantity[]>([]);
+  
+  useEffect(() => {
+    handleCart(cart);
+    console.log(cart);
+  }, [cart]);
 
   const handleItem = (newProduct:any, quantity: number) => {
     const productIndex = cart.findIndex((cart) => cart.id === newProduct.id);
+    const newCart = cart;
 
     if (productIndex !== - 1) {
       const productUpdateQuantity = {
         quantity,
         ...newProduct,
       }
-      cart[productIndex] = productUpdateQuantity;
+      newCart[productIndex] = productUpdateQuantity;
     } else {
       const newProductWithQuantity = {
         quantity,
         ...newProduct,
       }
-      setCart([...cart, newProductWithQuantity]);
+      newCart.push(newProductWithQuantity);
     }
-    console.log(cart);
-    handleCart(cart);
+    if(quantity === 0){
+      newCart.splice(productIndex, 1);
+    }
+    setCart([...newCart]);
+    
   }
   return (
 

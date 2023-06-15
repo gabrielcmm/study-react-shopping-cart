@@ -1,5 +1,5 @@
 import {Plus, Minus} from "@phosphor-icons/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import './CartItem.css'
 
 type CartItemProps = {
@@ -21,21 +21,24 @@ type CartItemProps = {
 
 function CartItem(props: CartItemProps) {
   const { product, handleItem } = props
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(0);
+
+  useEffect(() => {
+    handleItem(product, quantity);
+  }, [quantity]);
+
 
   const addQuantity = () => {
     setQuantity(quantity + 1);
-    console.log(`add quantity: ${quantity}`); 
   }
 
   const removeQuantity = () => {
-    quantity === -1 ? setQuantity(0) : setQuantity(quantity - 1);
-    console.log(`remove quantity: ${quantity}`);
+    quantity === 0 ? setQuantity(0) : setQuantity(quantity - 1);
   }
 
-  const handleClick =  (product: any, toAdd: boolean) => {    
+  const handleClick =  ( toAdd: boolean) => {    
     toAdd ? addQuantity() : removeQuantity();
-    handleItem(product, quantity);
+    
   };
 
   return (
@@ -45,9 +48,9 @@ function CartItem(props: CartItemProps) {
           <h3>{product.title}</h3>
           <p>R$ {product.price}</p>
         <div className="item-quantity">
-          <button onClick={() => handleClick(product, true)}><Plus width={15}/></button>
+          <button onClick={() => handleClick(true)}><Plus width={15}/></button>
           <p>{quantity}</p>
-          <button onClick={() => handleClick(product, false)}><Minus width={15}/></button>
+          <button onClick={() => handleClick(false)}><Minus width={15}/></button>
         </div>
       </div>
     </>
